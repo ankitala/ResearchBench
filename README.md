@@ -1,1 +1,3 @@
-# ResearchBench
+# ResearchBench: Benchmarking LLMs in Scientific Discovery via Inspiration-Based Task Decomposition
+
+We introduce ResearchBench, an LLM-based benchmark and automated framework designed to evaluate and enhance the scientific discovery ability of large language models (LLMs). ResearchBench decomposes the hypothesis formulation process into three fundamental sub-tasks: inspiration retrieval, hypothesis composition, and hypothesis ranking. Our framework demonstrates that LLMs can excel at retrieving out-of-distribution inspirations and composing high-quality hypotheses. This positions LLMs as powerful "research hypothesis mines" for automated scientific discovery across diverse disciplines.
