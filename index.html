@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResearchBench</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700;750&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+  <span class="brand">Research<b>Bench</b></span>
+  <div class="nav-links">
+    <a href="#overview">Overview</a><a href="#benchmark">Benchmark</a><a href="#results">Results</a>
+    <a href="#tasks">Tasks</a><a href="#examples">Examples</a><a href="#pipeline">Pipeline</a><a href="#cite">Cite</a>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <h1>ResearchBench</h1>
+  <p class="subtitle">Benchmarking LLMs in Scientific Discovery via Inspiration-Based Task Decomposition</p>
+  <div class="authors">
+    <a href="https://scholar.google.com/citations?user=7vKvTx8AAAAJ&hl=zh-CN" target="_blank">Yujie Liu<sup>1,2*</sup></a>
+    <a href="https://zongliny.github.io/" target="_blank">Zonglin Yang<sup>3,2*</sup></a>
+    <a href="https://0xtong.github.io/" target="_blank">Tong Xie<sup>4</sup></a>
+    <a href="https://jinjieni.github.io/" target="_blank">Jinjie Ni<sup>5</sup></a>
+    <a href="https://scholar.google.com/citations?user=7GY4HVEAAAAJ&hl=en&oi=ao" target="_blank">Ben Gao<sup>6,2</sup></a>
+    <a href="https://scholar.google.com/citations?user=RQqws5gAAAAJ&hl=en&oi=ao" target="_blank">Yuqiang Li<sup>2</sup></a>
+    <a href="https://scholar.google.com/citations?user=TJ4ihdkAAAAJ&hl=en&oi=ao" target="_blank">Shixiang Tang<sup>2</sup></a>
+    <a href="https://scholar.google.com/citations?user=pw_0Z_UAAAAJ&hl=en&oi=ao" target="_blank">Wanli Ouyang<sup>2&#8224;</sup></a>
+    <a href="https://scholar.google.com/citations?user=ilSYpW0AAAAJ&hl=en&oi=ao" target="_blank">Erik Cambria<sup>3&#8224;</sup></a>
+    <a href="https://scholar.google.com/citations?user=Ox6SxpoAAAAJ&hl=en&oi=ao" target="_blank">Dongzhan Zhou<sup>2&#8224;</sup></a>
+  </div>
+  <p class="affil"><sup>1</sup>Fudan University <sup>2</sup>Shanghai AI Laboratory <sup>3</sup>Nanyang Technological University <sup>4</sup>UNSW <sup>5</sup>NUS <sup>6</sup>Wuhan University</p>
+  <p class="note-line"><sup>*</sup>Equal contribution &#183; <sup>&#8224;</sup>Corresponding author</p>
+  <p class="note-line">liuyujie.cs@gmail.com &#183; {zonglin001,cambria}@ntu.edu.sg &#183; zhoudongzhan@pjlab.org.cn</p>
+  <div class="btn-row">
+    <a class="btn btn-out" href="https://arxiv.org/abs/2503.21248" target="_blank">Paper</a>
+    <a class="btn btn-out" href="https://github.com/ankitala/ResearchBench" target="_blank">Code</a>
+    <a class="btn btn-out" href="https://huggingface.co/datasets/ankilok/ResearchBench" target="_blank">Dataset</a>
+  </div>
+</div></header>
+
+<section id="overview"><div class="wrap">
+  <h2 class="sec-title">Can LLMs discover new scientific hypotheses?</h2>
+  <div class="overview-card">
+    <p>Large language models (LLMs) have shown potential in assisting scientific research, yet their ability to discover high-quality research hypotheses remains unexamined due to the lack of a dedicated benchmark. To address this gap, we introduce the first large-scale benchmark for evaluating LLMs on a sufficient set of scientific discovery sub-tasks&#8212;inspiration retrieval, hypothesis composition, and hypothesis ranking&#8212;where sufficient means that perfectly solving these sub-tasks perfectly solves the overall discovery task. We develop an automated LLM-based framework that extracts critical components&#8212;research questions, background surveys, inspirations, and hypotheses&#8212;from papers across 12 disciplines, with expert validation confirming its accuracy. To prevent data contamination, we focus exclusively on publications from 2024 onward, ensuring minimal overlap with LLM pretraining data; our automated framework further enables automatic extraction of even more recent papers as LLM pretraining cutoffs advance, supporting scalable and contamination-free automatic renewal of this discovery benchmark. Our evaluation shows that, across disciplines, LLMs excel at inspiration retrieval&#8212;an out-of-distribution task&#8212;suggesting their ability to surface novel knowledge associations.</p>
+  </div>
+</div></section>
+
+<section id="benchmark"><div class="wrap">
+  <div class="sec-head-left">
+    <div class="kicker">The Benchmark</div>
+    <h2 class="sec-title">1,386 frontier papers across 12 disciplines</h2>
+    <p class="sec-desc">Papers from Nature, Science, and venues of a similar level — all published in 2024 or later. Extracted automatically so the benchmark stays contamination-resistant as model cutoffs advance.</p>
+  </div>
+  <div class="bench-stats">
+    <div class="bs"><div class="bn">1,386</div><div class="bl">Papers</div></div>
+    <div class="bs"><div class="bn">12</div><div class="bl">Disciplines</div></div>
+    <div class="bs"><div class="bn">3</div><div class="bl">Sub-tasks</div></div>
+    <div class="bs"><div class="bn">12</div><div class="bl">LLMs</div></div>
+  </div>
+  <div class="bench-layout">
+    <div class="pie-wrap"><canvas id="pieChart" width="420" height="420"></canvas></div>
+    <div class="model-table-wrap">
+      <table class="model-table">
+        <thead><tr><th>Model</th><th>Cutoff</th><th>Released</th></tr></thead>
+        <tbody>
+          <tr><td>GPT-4o</td><td>Oct 2023</td><td>May 2024</td></tr>
+          <tr><td>GPT-4o Mini</td><td>Oct 2023</td><td>Jul 2024</td></tr>
+          <tr><td>Llama-3.1-8B</td><td>Dec 2023</td><td>Jul 2024</td></tr>
+          <tr><td>Llama-3.1-70B</td><td>Dec 2023</td><td>Jul 2024</td></tr>
+          <tr><td>Llama-3.2-1B</td><td>&#8212;</td><td>Sep 2024</td></tr>
+          <tr><td>Claude 3.5 Sonnet</td><td>Apr 2024</td><td>Jun 2024</td></tr>
+          <tr><td>Claude 3.5 Haiku</td><td>Jul 2024</td><td>Oct 2024</td></tr>
+          <tr><td>Gemini 2.0 Flash</td><td>Jun 2024</td><td>Dec 2024</td></tr>
+          <tr><td>Gemini 2.0 FT</td><td>Jun 2024</td><td>Dec 2024</td></tr>
+          <tr><td>Qwen Plus</td><td>&#8212;</td><td>Nov 2024</td></tr>
+          <tr><td>Qwen Turbo</td><td>&#8212;</td><td>Nov 2024</td></tr>
+          <tr><td>DeepSeek-V3</td><td>&#8212;</td><td>Dec 2024</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div></section>
+
+<section id="results"><div class="wrap">
+  <div class="sec-head-left">
+    <div class="kicker">Main Results</div>
+    <h2 class="sec-title">How 12 LLMs perform across the discovery pipeline</h2>
+    <p class="sec-desc">Overall scores averaged across all 12 disciplines and 1,386 papers. Switch tabs to compare the three sub-tasks.</p>
+  </div>
+  <div class="tabs" id="resultTabs">
+    <button class="tab active" data-panel="ret">Inspiration Retrieval</button>
+    <button class="tab" data-panel="comp">Hypothesis Composition</button>
+    <button class="tab" data-panel="rank">Hypothesis Ranking</button>
+  </div>
+  <div class="panel active" id="panel-ret">
+    <p class="panel-cap">Hit Ratio (%) &#8212; top 4% of 75 candidates selected (3 papers kept).</p>
+    <div class="data-table-wrap"><table class="data-table">
+      <thead><tr><th>Model</th><th>Cell</th><th>Chem</th><th>ETS</th><th>MS</th><th>Phys</th><th>EGS</th><th>EVS</th><th>BL</th><th>BS</th><th>Law</th><th>Math</th><th>A</th><th>Overall</th></tr></thead>
+      <tbody>
+        <tr><td>Llama-3.2-1B</td><td>10.70</td><td>11.60</td><td>12.26</td><td>9.59</td><td>11.15</td><td>8.49</td><td>14.57</td><td>13.00</td><td>17.09</td><td>12.50</td><td>11.42</td><td>10.71</td><td>11.91</td></tr>
+        <tr><td>Llama-3.1-8B</td><td>32.39</td><td>38.00</td><td>40.61</td><td>31.37</td><td>32.80</td><td>59.85</td><td>36.61</td><td>28.52</td><td>55.64</td><td>28.88</td><td>36.22</td><td>34.69</td><td>37.87</td></tr>
+        <tr><td>Gemini 2.0 FT</td><td>31.27</td><td>41.20</td><td>40.61</td><td>30.63</td><td>32.48</td><td>71.04</td><td>39.37</td><td>33.57</td><td>59.64</td><td>37.07</td><td>34.65</td><td>33.16</td><td>40.18</td></tr>
+        <tr><td>GPT-4o Mini</td><td>30.42</td><td>43.60</td><td>41.00</td><td>34.69</td><td>33.44</td><td>66.80</td><td>40.16</td><td>28.88</td><td>64.73</td><td>32.76</td><td>37.80</td><td>35.71</td><td>40.59</td></tr>
+        <tr><td>Qwen Turbo</td><td>35.49</td><td>42.40</td><td>42.15</td><td>33.95</td><td>35.03</td><td>66.80</td><td>43.31</td><td>33.21</td><td>61.45</td><td>29.74</td><td>36.61</td><td>34.69</td><td>41.21</td></tr>
+        <tr><td>Gemini 2.0 Flash</td><td>31.55</td><td>38.80</td><td>44.06</td><td>34.32</td><td>34.39</td><td>74.52</td><td>37.40</td><td>32.49</td><td>64.00</td><td>37.50</td><td>37.80</td><td>32.65</td><td>41.46</td></tr>
+        <tr><td>Claude 3.5 Sonnet</td><td>36.34</td><td>41.20</td><td>42.91</td><td>30.63</td><td>36.31</td><td>67.57</td><td>40.55</td><td>34.30</td><td>63.64</td><td>34.91</td><td>37.40</td><td>33.67</td><td>41.62</td></tr>
+        <tr><td>Qwen Plus</td><td>36.06</td><td>47.20</td><td>45.21</td><td>33.58</td><td>34.39</td><td>72.97</td><td>43.31</td><td>35.38</td><td>64.36</td><td>34.91</td><td>39.37</td><td>36.22</td><td>43.43</td></tr>
+        <tr><td>Claude 3.5 Haiku</td><td>41.13</td><td class="best">48.40</td><td>45.98</td><td>34.69</td><td>33.44</td><td>69.88</td><td>44.09</td><td>34.30</td><td>64.00</td><td>37.93</td><td>38.19</td><td class="best">41.33</td><td>44.28</td></tr>
+        <tr><td>DeepSeek-V3</td><td>38.87</td><td>46.00</td><td>44.06</td><td>36.90</td><td class="best">36.62</td><td class="best">75.29</td><td>41.73</td><td class="best">40.07</td><td>65.45</td><td>36.64</td><td>38.58</td><td>37.76</td><td>44.78</td></tr>
+        <tr><td>Llama-3.1-70B</td><td class="best">41.41</td><td>44.00</td><td class="best">47.51</td><td>36.90</td><td>34.39</td><td>70.66</td><td class="best">45.28</td><td>37.18</td><td>65.45</td><td class="best">39.22</td><td>38.19</td><td>39.29</td><td>44.87</td></tr>
+        <tr><td>GPT-4o</td><td>39.44</td><td>46.40</td><td>47.13</td><td class="best">38.38</td><td>35.35</td><td class="best">75.29</td><td>44.88</td><td>38.63</td><td class="best">65.82</td><td class="best">39.22</td><td class="best">40.16</td><td>38.78</td><td class="best">45.65</td></tr>
+      </tbody>
+    </table></div>
+    <p class="takeaway">Retrieval capability climbs fast up to ~8B parameters, then plateaus around 70B regardless of training strategy.</p>
+  </div>
+  <div class="panel" id="panel-comp">
+    <p class="panel-cap">Normalized matched score (%) &#8212; how well a generated hypothesis covers ground-truth key points.</p>
+    <div class="data-table-wrap"><table class="data-table">
+      <thead><tr><th>Model</th><th>Cell</th><th>Chem</th><th>ETS</th><th>MS</th><th>Phys</th><th>EGS</th><th>EVS</th><th>BL</th><th>BS</th><th>Law</th><th>Math</th><th>A</th><th>Overall</th></tr></thead>
+      <tbody>
+        <tr><td>Claude 3.5 Haiku</td><td>40.42</td><td>40.87</td><td>38.71</td><td>46.75</td><td>45.00</td><td>45.34</td><td>48.00</td><td>46.15</td><td>35.14</td><td>37.85</td><td>43.59</td><td>34.29</td><td>42.56</td></tr>
+        <tr><td>Llama-3.1-8B</td><td>44.58</td><td>47.83</td><td>42.78</td><td>46.04</td><td>45.05</td><td>44.30</td><td>46.47</td><td>47.37</td><td>44.21</td><td>47.58</td><td>48.21</td><td>45.14</td><td>45.68</td></tr>
+        <tr><td>Gemini 2.0 FT</td><td>45.67</td><td>39.79</td><td>48.48</td><td>47.22</td><td>48.77</td><td>49.24</td><td>48.57</td><td>48.02</td><td>41.47</td><td>47.03</td><td>42.81</td><td>40.00</td><td>46.30</td></tr>
+        <tr><td>Gemini 2.0 Flash</td><td>46.25</td><td>45.63</td><td>48.64</td><td>51.63</td><td>47.97</td><td>51.47</td><td>49.41</td><td>48.77</td><td>47.03</td><td>55.91</td><td class="best">56.24</td><td>49.71</td><td>50.15</td></tr>
+        <tr><td>Llama-3.1-70B</td><td>46.67</td><td>49.86</td><td>50.83</td><td>51.53</td><td>50.60</td><td>50.61</td><td>52.10</td><td>54.36</td><td>49.47</td><td>53.94</td><td>51.11</td><td>49.14</td><td>50.92</td></tr>
+        <tr><td>GPT-4o Mini</td><td>46.67</td><td>49.42</td><td>50.91</td><td>52.63</td><td>53.82</td><td>53.33</td><td>54.86</td><td>54.36</td><td>46.92</td><td>56.97</td><td>52.48</td><td>53.14</td><td>52.47</td></tr>
+        <tr><td>Qwen Turbo</td><td>52.92</td><td>51.45</td><td>49.55</td><td>51.06</td><td>52.64</td><td>50.97</td><td>52.57</td><td>56.92</td><td class="best">53.16</td><td>55.76</td><td>55.38</td><td>53.14</td><td>52.71</td></tr>
+        <tr><td>GPT-4o</td><td>55.00</td><td>53.04</td><td>54.09</td><td>53.95</td><td>53.82</td><td>52.97</td><td>53.14</td><td>55.38</td><td>46.15</td><td>53.99</td><td>54.53</td><td>52.57</td><td>53.37</td></tr>
+        <tr><td>DeepSeek-V3</td><td>52.78</td><td>52.27</td><td>53.18</td><td>54.25</td><td>54.91</td><td>53.91</td><td>53.71</td><td>56.32</td><td>50.27</td><td>55.15</td><td>52.14</td><td>53.71</td><td>53.79</td></tr>
+        <tr><td>Qwen Plus</td><td class="best">60.00</td><td class="best">53.72</td><td class="best">57.27</td><td class="best">56.63</td><td class="best">58.14</td><td class="best">56.63</td><td class="best">60.57</td><td class="best">58.97</td><td>51.05</td><td class="best">62.19</td><td>55.90</td><td class="best">56.57</td><td class="best">57.46</td></tr>
+      </tbody>
+    </table></div>
+    <p class="takeaway">All models can associate background with inspirations, but composition quality scales steadily with model capability.</p>
+  </div>
+  <div class="panel" id="panel-rank">
+    <p class="panel-cap">Ranking accuracy (%) &#8212; each hypothesis pair is compared twice with reversed order to cancel position bias. The rightmost column shows the percentage where both orderings are correctly ranked.</p>
+    <div class="data-table-wrap"><table class="data-table">
+      <thead><tr><th>Model</th><th>Cell</th><th>Chem</th><th>ETS</th><th>MS</th><th>Phys</th><th>EGS</th><th>EVS</th><th>BL</th><th>BS</th><th>Law</th><th>Math</th><th>A</th><th>Overall</th><th>Debiased</th></tr></thead>
+      <tbody>
+        <tr><td>Llama-3.1-70B</td><td>36.94</td><td>35.57</td><td>30.57</td><td>37.71</td><td>43.35</td><td>47.18</td><td>36.02</td><td>43.11</td><td>41.63</td><td>46.09</td><td>30.73</td><td>25.40</td><td>38.06</td><td>8.17</td></tr>
+        <tr><td>GPT-4o Mini</td><td>42.25</td><td>39.94</td><td>34.39</td><td>42.98</td><td>39.78</td><td>43.78</td><td>40.63</td><td>43.72</td><td>45.03</td><td>42.24</td><td>32.67</td><td>31.50</td><td>40.13</td><td>1.33</td></tr>
+        <tr><td>Gemini 2.0 Flash</td><td>43.73</td><td>44.38</td><td>35.95</td><td>51.86</td><td>54.63</td><td>55.16</td><td>40.98</td><td>44.00</td><td>46.88</td><td>48.31</td><td>38.24</td><td>35.75</td><td>45.11</td><td>12.83</td></tr>
+        <tr><td>Qwen Turbo</td><td>46.42</td><td>45.11</td><td>42.88</td><td>48.74</td><td>45.61</td><td>46.40</td><td>45.26</td><td>49.20</td><td>50.92</td><td>49.27</td><td>37.15</td><td>37.62</td><td>45.48</td><td>15.00</td></tr>
+        <tr><td>Gemini 2.0 FT</td><td>43.52</td><td>44.96</td><td>36.88</td><td>52.81</td><td>54.08</td><td>54.95</td><td>42.27</td><td>44.53</td><td>46.15</td><td>48.09</td><td>37.80</td><td>38.40</td><td>45.49</td><td>13.83</td></tr>
+        <tr><td>Qwen Plus</td><td>46.00</td><td>46.00</td><td>41.72</td><td>49.35</td><td>50.64</td><td>49.11</td><td>44.80</td><td>46.93</td><td>43.36</td><td>45.43</td><td>40.16</td><td>41.97</td><td>45.56</td><td>5.67</td></tr>
+        <tr><td>Claude 3.5 Haiku</td><td>48.15</td><td>46.88</td><td>45.55</td><td>52.45</td><td>54.10</td><td>52.48</td><td>48.83</td><td>48.06</td><td>51.23</td><td>52.93</td><td>44.49</td><td>40.27</td><td>48.86</td><td>13.67</td></tr>
+        <tr><td>Llama-3.1-8B</td><td>55.48</td><td>54.20</td><td>55.90</td><td>56.60</td><td>54.35</td><td>55.48</td><td>55.91</td><td>56.71</td><td>54.69</td><td>55.55</td><td>55.60</td><td>55.49</td><td>55.65</td><td>5.83</td></tr>
+        <tr><td>GPT-4o</td><td>60.75</td><td>60.99</td><td>53.24</td><td>61.69</td><td>61.34</td><td>61.20</td><td>60.52</td><td>64.11</td><td>64.67</td><td>61.14</td><td>52.60</td><td>51.80</td><td>59.60</td><td>27.00</td></tr>
+        <tr><td>DeepSeek-V3</td><td class="best">80.88</td><td class="best">82.03</td><td>78.85</td><td class="best">83.63</td><td>80.82</td><td>81.47</td><td class="best">83.98</td><td>81.77</td><td>83.48</td><td>80.69</td><td class="best">76.78</td><td>75.88</td><td>80.99</td><td>76.44</td></tr>
+        <tr><td>Claude 3.5 Sonnet</td><td>80.23</td><td>80.83</td><td class="best">80.93</td><td>83.20</td><td class="best">84.33</td><td class="best">84.72</td><td>82.63</td><td class="best">82.48</td><td class="best">84.87</td><td class="best">81.81</td><td>76.20</td><td class="best">76.51</td><td class="best">81.59</td><td class="best">77.67</td></tr>
+      </tbody>
+    </table></div>
+    <p class="takeaway">Position bias is the main failure mode. The "Debiased" column shows the % of pairs where both orderings are correctly ranked &#8212; only Claude 3.5 Sonnet and DeepSeek-V3 exceed 70%.</p>
+  </div>
+</div></section>
+
+<section id="tasks"><div class="wrap">
+  <div class="sec-head-left">
+    <div class="kicker">The Tasks</div>
+    <h2 class="sec-title">A sufficient decomposition of discovery</h2>
+    <p class="sec-desc">Perfectly solving these three sub-tasks perfectly solves the overall discovery task.</p>
+  </div>
+  <div class="task-grid">
+    <div class="task t1"><div class="tnum">01</div><h3>Inspiration Retrieval</h3><p>Screen 75 candidate papers and surface the few that could spark a hypothesis &#8212; even when they look unrelated to the research question.</p><div class="tmeta"><span>Metric</span><b>Hit Ratio</b></div></div>
+    <div class="task t2"><div class="tnum">02</div><h3>Hypothesis Composition</h3><p>Associate the research background with retrieved inspirations via mutate / refine / recombine to compose a novel hypothesis.</p><div class="tmeta"><span>Metric</span><b>Matched Score</b></div></div>
+    <div class="task t3"><div class="tnum">03</div><h3>Hypothesis Ranking</h3><p>From 16 hypotheses (1 ground-truth, 15 negatives), pick the best via pairwise comparison with reversed-order debiasing.</p><div class="tmeta"><span>Metric</span><b>Pairwise Accuracy</b></div></div>
+  </div>
+</div></section>
+
+<section id="examples"><div class="wrap">
+  <div class="sec-head-left">
+    <div class="kicker">Examples</div>
+    <h2 class="sec-title">See the benchmark in action</h2>
+  </div>
+  <div class="subtabs" id="exTabs">
+    <button class="subtab active" data-ex="ret">Inspiration Retrieval</button>
+    <button class="subtab" data-ex="comp">Hypothesis Composition</button>
+    <button class="subtab" data-ex="rank">Hypothesis Ranking</button>
+  </div>
+  <div class="ex-panel active" id="ex-ret">
+    <div class="card">
+      <div class="qrow"><span class="tagm q">Question</span><span class="qtext">How can a low-cost, eco-friendly adsorbent be developed to efficiently remove methylene blue (MB), a common pollutant, from aqueous solutions?</span></div>
+      <div class="blk"><div class="bh"><span class="tagm ins">GPT-4o Selected Inspirations</span></div>
+        <p style="font-size:11.5px;color:var(--muted);margin-bottom:8px"><span style="display:inline-block;width:10px;height:10px;background:var(--green-soft);border:1px solid #c4ddc9;border-radius:3px;vertical-align:middle;margin-right:4px"></span>= ground-truth (correct) &#160; <span style="display:inline-block;width:10px;height:10px;background:var(--surface-2);border:1px solid var(--line);border-radius:3px;vertical-align:middle;margin-right:4px"></span>= not ground-truth (incorrect)</p>
+      </div>
+      <div class="insp-item correct"><div class="it">Biochar-supported zerovalent iron for removal of various contaminants from aqueous solutions</div><div class="ir">Integrates biochar and zero-valent iron for cost-effective, eco-friendly enhancement of adsorption &#8212; directly applicable to MB removal.</div></div>
+      <div class="insp-item correct"><div class="it">Uniform silver nanowires synthesis by reducing AgNO3 with ethylene glycol</div><div class="ir">Control of particle characteristics informs structural optimization of porous, functionalized adsorbent surfaces.</div></div>
+      <div class="insp-item wrong"><div class="it">Biochar composites from biomass &amp; waste residues</div><div class="ir">Explores metal-enriched biochar composites; relevant but not a ground-truth inspiration for this task.</div></div>
+    </div>
+  </div>
+  <div class="ex-panel" id="ex-comp">
+    <figure class="figure"><img src="assets/method.png" alt="Hypothesis composition framework"><figcaption><b>Hypothesis composition framework.</b> An evolutionary unit mutates different ways to combine background and inspiration, then recombines the best parts into a final hypothesis.</figcaption></figure>
+    <div class="card">
+      <div class="qrow"><span class="tagm q">Question</span><span class="qtext">How can we enhance the targeted delivery and therapeutic efficacy of dacarbazine in breast cancer cells while minimizing systemic toxicity?</span></div>
+      <div class="blk"><div class="bh"><span class="tagm gen">GPT-4o Generated</span></div><div class="btxt">A hybrid delivery system of sugar-originated carbon nanodots conjugated with dacarbazine, encapsulated in a glucose-mimetic, pH-responsive hydrogel &#8212; targeting GLUT1-overexpressing cells via the acidic tumor microenvironment.</div></div>
+      <div class="blk"><div class="bh"><span class="tagm gt">Ground Truth</span></div><div class="btxt">Dacarbazine-primed carbon quantum dots coated with breast cancer cell-derived <b>exosomes</b> (Ex-DC@CQDs) for enhanced targeted delivery, improved tumor-site accumulation, and reduced systemic toxicity.</div></div>
+      <div style="margin-top:8px"><span class="score-badge">Score: 2 / 5</span> <span style="font-size:12px;color:var(--ink-soft);margin-left:8px">Captures carbon nanodot + dacarbazine, but replaces exosome-mediated targeting with a hydrogel mechanism.</span></div>
+    </div>
+  </div>
+  <div class="ex-panel" id="ex-rank">
+    <div class="card">
+      <div class="qrow"><span class="tagm q">Question</span><span class="qtext">How does the relationship between SMBHs and their host galaxies evolve during the star-formation peak at redshifts 1&#8211;3?</span></div>
+      <div class="blk"><div class="bh"><span class="tagm gt">Ground-Truth Hypothesis</span></div><div class="btxt">During the peak epoch (z &#8776; 2), some host galaxies grow faster than their SMBHs &#8212; evidenced by an undermassive SMBH accreting at a super-Eddington rate in a high-redshift quasar.</div></div>
+      <div class="blk"><div class="bh"><span class="tagm neg">Negative Hypothesis</span></div><div class="btxt">At redshifts 1&#8211;3, coevolution is driven by companion-galaxy interactions and cold-gas inflows shaping molecular-gas accretion under AGN feedback, quantified via ALMA data. <span class="gpt-pick">GPT-4o picked this</span></div></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="pipeline"><div class="wrap">
+  <div class="sec-head-left">
+    <div class="kicker">Extraction Pipeline</div>
+    <h2 class="sec-title">How the benchmark is built</h2>
+    <p class="sec-desc">An LLM-based agentic framework decomposes each paper into research question, background survey, inspirations, and hypothesis &#8212; verified by experts at 91.9% accuracy.</p>
+  </div>
+  <figure class="figure"><img src="assets/pipeline.png" alt="Extraction framework"><figcaption><b>Extraction framework overview.</b> The decomposition module proposes candidate inspirations; the necessary checker removes redundant ones; the sufficient checker confirms coverage of the hypothesis.</figcaption></figure>
+  <div class="acc" id="pipeAcc">
+    <p class="acc-intro">Worked example &#8212; terahertz quasicrystal absorber paper. Click to expand.</p>
+    <div class="acc-item"><div class="acc-head"><span class="atag">Input</span><span class="ah">Target Paper &#8212; AlCuFe quasicrystal terahertz absorber</span><span class="chev">&#9654;</span></div><div class="acc-body"><div class="acc-inner">A tunable absorber film of grating structure of AlCuFe quasicrystal on a gold substrate, with three perfect absorption bands.</div></div></div>
+    <div class="acc-item"><div class="acc-head"><span class="atag">Question</span><span class="ah">Extracted Research Question</span><span class="chev">&#9654;</span></div><div class="acc-body"><div class="acc-inner">How can we design a tunable, high-performance terahertz absorber that is easy to fabricate, offers multi-band absorption, and exhibits high sensitivity for sensing?</div></div></div>
+    <div class="acc-item"><div class="acc-head"><span class="atag">Inspirations</span><span class="ah">3 Decomposed Inspirations</span><span class="chev">&#9654;</span></div><div class="acc-body"><div class="acc-inner"><div class="mini-insp"><div class="mi-t">PtTe2-based type-II Dirac semimetal for THz photodetection</div></div><div class="mini-insp"><div class="mi-t">Dual-band tunable NIR light trapping via grating-based Fabry-Perot structure</div></div><div class="mini-insp"><div class="mi-t">Perfect metamaterial absorber</div></div></div></div></div>
+    <div class="acc-item"><div class="acc-head"><span class="atag">Hypothesis</span><span class="ah">Extracted Hypothesis</span><span class="chev">&#9654;</span></div><div class="acc-body"><div class="acc-inner">An AlCuFe quasicrystal (Dirac semimetal) grating on gold achieves perfect multi-band THz absorption, tunable via Fermi energy, grating parameters, or polarization.</div></div></div>
+  </div>
+</div></section>
+
+<section id="cite"><div class="wrap">
+  <div class="sec-head-left">
+    <div class="kicker">Citation</div>
+    <h2 class="sec-title">Cite ResearchBench</h2>
+  </div>
+  <div class="cite-box">
+    <div class="cite-bar"><span class="dots"><i></i><i></i><i></i></span><span class="ttl">bibtex</span><button class="copy" id="copyBtn">Copy</button></div>
+<pre id="bibtex"><span class="k">@article</span>{liu2025researchbench,
+  <span class="k">title</span>   = {<span class="v">ResearchBench: Benchmarking LLMs in Scientific Discovery via Inspiration-Based Task Decomposition</span>},
+  <span class="k">author</span>  = {<span class="v">Liu, Yujie and Yang, Zonglin and Xie, Tong and Ni, Jinjie and Gao, Ben and Li, Yuqiang and Tang, Shixiang and Ouyang, Wanli and Cambria, Erik and Zhou, Dongzhan</span>},
+  <span class="k">journal</span> = {<span class="v">arXiv preprint arXiv:2503.21248</span>},
+  <span class="k">year</span>    = {<span class="v">2025</span>}
+}</pre>
+  </div>
+</div></section>
+
+<footer>
+  <div class="flinks"><a href="https://arxiv.org/abs/2503.21248" target="_blank">Paper</a><a href="https://github.com/ankitala/ResearchBench" target="_blank">Code</a><a href="https://huggingface.co/datasets/ankilok/ResearchBench" target="_blank">Dataset</a></div>
+  <div>ResearchBench: Benchmarking LLMs in Scientific Discovery via Inspiration-Based Task Decomposition &#169; 2026</div>
+</footer>
+<div class="toTop" id="toTop">&#8593;</div>
+<script src="app.js" defer></script>
+</body>
+</html>
