@@ -1,0 +1,7 @@
+# Convenience requirements for a source checkout.
+#
+# `pyproject.toml` is the authoritative dependency declaration. This file is
+# intentionally small: it installs ResearchBench in editable mode with the
+# optional dependencies needed for tests and OpenAI-compatible provider calls.
+
+-e .[dev,openai]

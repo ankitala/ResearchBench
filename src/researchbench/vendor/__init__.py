@@ -1,0 +1,2 @@
+"""Vendored compatibility code."""
+
