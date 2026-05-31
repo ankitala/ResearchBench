@@ -54,7 +54,7 @@
     canvas.width=420*dpr;canvas.height=420*dpr;
     canvas.style.width="420px";canvas.style.height="420px";
     ctx.scale(dpr,dpr);
-    var cx=210,cy=210,r=130,ir=72;
+    var cx=206,cy=210,r=130,ir=60;
     var angle=-Math.PI/2;
     data.forEach(function(d){
       var slice=(d.value/total)*Math.PI*2;
@@ -66,13 +66,16 @@
       ctx.fillStyle=d.color;ctx.fill();
       ctx.strokeStyle="rgba(250,249,247,0.9)";ctx.lineWidth=1.5;ctx.stroke();
       var mid=angle+slice/2;
-      var lx=cx+Math.cos(mid)*(r+18);
-      var ly=cy+Math.sin(mid)*(r+18);
-      ctx.font="500 10px Inter,sans-serif";
+      var lx=cx+Math.cos(mid)*(r+28);
+      var ly=cy+Math.sin(mid)*(r+28);
+      ctx.font="600 10px Inter,sans-serif";
       ctx.fillStyle="#4d4b47";
       ctx.textAlign=lx>cx?"left":"right";
       ctx.textBaseline="middle";
-      ctx.fillText(d.label+" "+d.value,lx,ly);
+      ctx.fillText(d.label,lx,ly-6);
+      ctx.font="400 9px Inter,sans-serif";
+      ctx.fillStyle="#8c8a85";
+      ctx.fillText(d.value,lx,ly+6);
       angle+=slice;
     });
     ctx.font="750 24px Inter,sans-serif";ctx.fillStyle="#1a1a18";
