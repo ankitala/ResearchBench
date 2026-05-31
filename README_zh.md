@@ -2,6 +2,7 @@
 
 <p align="center">
   <a href="https://arxiv.org/abs/2503.21248"><img src="https://img.shields.io/badge/Paper-arXiv-b31b1b?logo=arxiv" alt="Paper"></a>
+  <a href="https://ankitala.github.io/ResearchBench/"><img src="https://img.shields.io/badge/Project-Page-2ea44f?logo=githubpages" alt="Project Page"></a>
   <a href="https://huggingface.co/datasets/ankilok/ResearchBench"><img src="https://img.shields.io/badge/Dataset-HuggingFace-ffd21e?logo=huggingface" alt="Dataset"></a>
   <a href="https://github.com/ankitala/ResearchBench"><img src="https://img.shields.io/badge/GitHub-Repo-blue?logo=github" alt="GitHub"></a>
 </p>
